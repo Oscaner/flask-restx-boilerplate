@@ -6,13 +6,12 @@ This module:
 - Registers extensions
 """
 
+# Import config
+from config import config_by_name
 from flask import Flask
 
 # Import extensions
 from .extensions import bcrypt, cors, db, jwt, ma
-
-# Import config
-from config import config_by_name
 
 
 def create_app(config_name):

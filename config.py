@@ -15,26 +15,29 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
 
 
-class DevelopmentConfig(Config):
+class LocalConfig(Config):
     DEBUG = True
+    TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "sqlite:///" + os.path.join(basedir, "data-dev.sqlite")
+        "DATABASE_URL", "sqlite:///" + os.path.join(basedir, "data-local.sqlite")
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Add logger
 
 
-class TestingConfig(Config):
+class DevConfig(Config):
     DEBUG = True
     TESTING = True
     # In-memory SQLite for testing
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL", "sqlite:///" + os.path.join(basedir, "data-dev.sqlite")
+    )
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-class ProductionConfig(Config):
+class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL", "sqlite:///" + os.path.join(basedir, "data.sqlite")
@@ -43,8 +46,8 @@ class ProductionConfig(Config):
 
 
 config_by_name = dict(
-    development=DevelopmentConfig,
-    testing=TestingConfig,
-    production=ProductionConfig,
-    default=DevelopmentConfig,
+    local=LocalConfig,
+    dev=DevConfig,
+    prod=ProdConfig,
+    default=LocalConfig,
 )

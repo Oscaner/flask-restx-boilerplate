@@ -27,11 +27,11 @@ Usage: flask [OPTIONS] COMMAND [ARGS]...
 
   Provides commands from Flask, extensions, and the application. Loads the
   application defined in the FLASK_APP environment variable, or from a
-  wsgi.py file. Setting the FLASK_ENV environment variable to 'development'
+  wsgi.py file. Setting the FLASK_ENV environment variable to 'local'
   will enable debug mode.
 
     $ export FLASK_APP=giya.py
-    $ export FLASK_ENV=development
+    $ export FLASK_ENV=local
     $ flask run
 
 Options:
@@ -41,7 +41,7 @@ Options:
 Commands:
   db      Perform database migrations.
   routes  Show the routes for the app.
-  run     Run a development server.
+  run     Run a local server.
   shell   Run a shell in the app context.
   test    Run unit tests
 ```
@@ -71,8 +71,10 @@ The rest of the resources are found in `/api` (This is the docs route by default
 # Clone the repo
 $ git clone https://github.com/X1Zeth2X/flask-restx-boilerplate.git
 
-# Install packages with pipenv
-$ pipenv install
+# Install packages with conda
+$ conda create -n genaihub python=3
+$ conda activate genaihub
+$ pip install -r requirements.txt
 ```
 
 ## Running
@@ -82,12 +84,12 @@ Please specify your app's environment variables in a `.env` file, otherwise Flas
 # .env file example
 export FLASK_APP=giya
 
-# configs: production, testing, development, and default (uses DevelopmentConfig)
-export FLASK_CONFIG=development
+# configs: production, testing, local, and default (uses LocalConfig)
+export FLASK_CONFIG=local
 
 # Another way of assigning environment variables is:
 FLASK_APP=giya
-FLASK_CONFIG=development
+FLASK_CONFIG=local
 
 # Read more at https://github.com/theskumar/python-dotenv
 ```
@@ -96,7 +98,7 @@ FLASK_CONFIG=development
 # Enter the virtualenv
 $ pipenv shell
 
-# (Optional for development, recommended)
+# (Optional for local, recommended)
 $ flask db init # Initializes a new SQLite database.
 $ flask db migrate # Creates the tables in the database.
 

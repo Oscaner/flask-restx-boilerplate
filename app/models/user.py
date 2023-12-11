@@ -1,5 +1,6 @@
 from datetime import datetime
-from app import db, bcrypt
+
+from app import bcrypt, db
 
 # Alias common DB names
 Column = db.Column
@@ -74,7 +75,7 @@ class Role(Model):
 
 
 class User(Model):
-    """ User model for storing user related data """
+    """User model for storing user related data"""
 
     id = Column(db.Integer, primary_key=True)
     email = Column(db.String(64), unique=True, index=True)
